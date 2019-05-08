@@ -1,0 +1,1032 @@
+Discrete Mathematics as opposed to Continuous
+Objects handled are discrete, not continuous (eg, real numbers are continuous)
+Integers are discrete
+
+Why discrete math?
+Computers can only handle discrete objects, continuous objects must be represented discretely
+Real world objects are represented by strings
+
+Understand discrete objects, which is what computers use
+Computers compute with discrete objects, but some ways are more efficient which requires someone understanding discrete objects to help
+
+Tools to handle discrete objects: (also chapters)
+	1. Logic
+		a. A mathematical language describing statements on objects
+	2. Set
+		a. A collection of objects
+	3. Proof methods
+		a. Several different ways of doing this
+		b. Sometimes one will work and sometimes it won't
+		c. Can prove statements on objects
+	4. Mathematical induction
+		a. Another "powerful" proof method
+	5. Relations and Functions
+		a. All real world objects are related in some way
+		b. Can describe relations among discrete objects
+	6. Algorithms (and complexity)
+		a. Math version of software programs
+		b. Complexity is cost of running an algorithm in a sense
+	7. Integers
+		a. Can represent all real world objects (aproximately)
+	8. Counting Methods
+	9. Counting Methods
+		a. How to enumerate number of cases
+	10. Discrete Probability
+	11. Partially ordered sets
+		a. Covers various ways to order discrete objects
+	12. Graphs and Trees
+	13. Graphs and Trees
+	14. Graphs and Trees
+	15. Graphs and Trees
+		a. Model real world objects and relations
+	
+Chapter 1 - Logic
+Logic is a language to unambiguously specify the meaning of mathematical statements with which "reasoning" can be ade about their validness (true or false)
+Statement (or proposition) - Any "declarative" sentence, it is either true or false
+	• Professor Kim is the teaching CS 2813 [True]
+	• It is warm in this room (if "warm" means >= 75 F) [False]
+	• It snowed yesterday in Norman [True]
+Those were examples of Primitive statements - cannot be broken down into anything simpler
+Compound statement - built upon primitive statements
+	• Conjunction (Logical AND) - P ^ Q
+	• Disjunction (Logical OR) - P v Q
+	• Negation (Logical NOT) - P (With a bar above it) or ~P or (tiny upper right bracket) P
+	• Exclusive OR - P (+) Q - if one of P or Q is true, the other needs to be false
+	• Implication - P => Q (if P, then Q, but not necessarily vice versa)
+	• Equivalence - P <==> Q (P is logically equivalent to Q, ie P => Q and Q => P)
+Truth Table - Summarizes all possible truth values of a compound statement relative to its primitive substatements
+P	Q	P ^ Q	P v Q	~P	P (+) Q	P => Q	P <=> Q
+T	T	T	T	F	F	T	T
+T	F	F	T	F	T	F	F
+F	T	F	T	T	T	T	F
+F	F	F	F	T	F	T	T
+
+Tautology - a statement that is always true (P v ~P) ( P ^ Q <=> Q ^ P)
+Contradiction - a statement that is always false (P <=> ~P)
+
+Primitive statements
+Logical connectives
+Paranthesis
+Not first, then left to right
+
+	• Commutive laws
+		○ P^Q <=> Q^P
+		○ PvQ <=> QvP
+	• Associative laws
+		○ (P^Q)^R <=> P^(Q^R)
+		○ (PvQ)vR <=> Pv(QvR)
+	• Distributive laws
+		○ P^(QvR) <=> (P^Q) v (P^R)
+		○ Pv(Q^R) <=> (PvQ) ^ (PvR)
+	• De Morgan's Laws
+		○ ~(P ^ Q) <=> ~P v ~Q
+		○ ~(P v Q) <=> ~P ^ ~Q
+	• Contrapositive
+		○ Contrapositive of P => Q is ~Q => ~P
+	• Converse
+		○ If P => Q the converse is that Q => P
+Example:
+If the Humidity is high and the Temperature is high then one feels uncomfortable.
+Primitive Statements:
+	• Humidity is high (H >= 80) - P
+	• Temperature is high (H >= 100) - Q
+	• One feels comfortable - R
+P ^ Q => ~R
+
+Example:
+X + 2 is an even number (True iff X is even)
+
+Quantified statements
+	• Universal quantifier (Upside down A)
+		○ Vx P(x) //for all x, P(x) is true
+	• Existential quantifier (Backwards E)
+		○ Ex P(x) //there exists x such that P(x) is true
+
+Examples:
+Vx (x + 2 is even) : false
+Ex (x + 2 is even) : true
+Vx {Ey [(x + y = 0)]} : true (Curly braces are scope of all x, and normal brackets are scope of there exists y)
+Ex Vy (x + y = 0) : false (there is 1 x value for every y value that makes the equation 0)
+Vy Ex (x + y = 0): true (Same as one above the one right above really)
+Vx Ey Ez ( x*(y+z) = 0)
+
+
+~(Vx P(x)) <=> Ex ~P(x) [If not all x's make P true, there exists some x that makes P false]
+~(ExP(x)) <=> Vx(~Px) [If there is not an x that makes P true, no value of x makes P true]
+
+Note: => and <=> can be replaced by ~, ^, and v:
+	• (P => Q) <=> (~P v Q)
+	• (P => Q) <=> ((P=>Q)^(Q=>P))
+
+Statements can be simplified by using various laws
+	• ~(P v (~P ^ Q)) <=> ~P ^ ~Q
+		○ ~(P v (~P ^ Q)) <=> ~P ^ ~(~P ^ Q) //De Morgan's law
+		○ ~P ^ ~(~P ^ Q) <=> ~P ^ (~~P v ~Q) //De Morgan's law
+		○  ~P ^ (~~P v ~Q) <=> ~P ^ (P v ~Q) // Double Negation
+		○ ~P ^ (P v ~Q) <=> (~P ^ P) v  (~P ^ ~Q) //distribution law
+		○  (~P ^ P) v  (~P ^ ~Q)  <=> F v (~P ^ ~Q) //P ^ ~P = F
+		○ ~P ^ ~Q //F v R = R VR
+
+Note: A logic consists of 
+	• Axioms (Statements accepted as true without proof)
+	• Basic laws  & interface rules (That allow to derive other facts[theorems] from known facts[axioms])
+	• Theorem, a statement that can be "proven" to be true by using axioms, other theorems, and laws/inference rules
+
+Example of inference rules:
+	• Modus ponens (P ^ (P => Q) => Q)
+	• Modus Tolems (P => Q, ~Q, therefore ~P) (Contrapositive)
+	• Resolution inference (P v R, Q v ~R, therefore P v Q) //called "resolvent" of the two premises
+		○ Can be proven by constructing a truth table
+
+
+The main use of logic is to prove things
+Prove (P ^ ( P => Q)) => (Q v R) [This uses proof by contradiction]
+	1. P
+	2. P => Q
+	3. ~(Q v R) //Assume this and derive a contradiction
+	4. ~Q //De Morgan on 3
+	5. ~R //De Morgan on 3
+	6. Q  //Modus ponens
+	7. Contradiction // 4 ^ 6
+
+Example: [Direct proof]
+Facts:
+	1. If it is humid and hot then it will rain
+	2. If it is humid then it is hod
+	3. It is humid now
+Will it rain?
+Primitive statements:
+	P: It is humid
+	Q: It is hot
+	R: It will rain
+	1. (P ^ Q) => R
+	2. P => Q
+	3. P
+	4. Q //Modus Ponens on 2 & 3
+	5. P ^ Q //Conjunction of 3 & 4
+	6. R //Modus Ponens on 5 & 1
+
+Same thing by contradiction
+	1. (P^Q) => R
+	2. P => Q
+	3. P
+	4. ~R
+	5. ~(P^Q) //Modus Tolems on 4 and 1
+	6. ~P v ~Q //De Morgan
+	7. ~Q // 3 and 6
+	8. Contradiction //Modus ponens on 3 and 2
+
+
+
+Chapter 2: Sets
+A set is a collection of objects with a certain common property (no repetition, no ordering)
+Enumerate its elements
+	A = {1, 2, 3} ( = {2, 1, 3})
+Specify the property of its elements
+	A = {x | x = 1, 2, or 3}
+	B = {x | x = any positive real number}
+	
+Examples:
+	N: Natural numbers (1, 2, 3,…) {extra line on the left line of N}
+	Z: integers {Extra line on the middle of Z}
+	R: Real numbers {Extra line on the R}
+	Q: Rational numbers {Line on the left side of Q}
+	
+Subset - smaller set within a set, part of it
+
+A c= B if Vx (x E A => x E B) {c is underlined, V is an upsidedown A, E is a tiny e}
+B is a superset of A
+
+
+Proper subset - A C B (if A c= B, but A != B)
+Empty Set - 0 or {} (that 0 is the not symbol)
+
+Cardinality - A| = 3 if A={1,2,3}
+Power set (of a set A): P(a) or 2 ^A = the set of all subsets of A
+A = {1,2,3}
+2^A = {0, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}}
+
+
+Set Operations
+	• Union - Combine two sets
+		○ A u B = { x | x E A or x E B}
+	• Intersection - common parts
+		○ A n B = { x | x E A and x E B}
+	• Difference - What isn't in the second
+		○ A - B = {x | x E A and x !E B}
+	• Symmetric difference - unique elements
+		○ A Δ B = (A - B) u (B - A)
+	• Complement - elements outside of something
+		○ A (with a bar on top) = {x | x !E A}
+Example:
+	• A = {1, 2, 3}
+	• B = {2, 3, 4, d}
+	• A u B = {1, 2, 3, 4, d}
+	• A n B = {2, 3}
+	• A - B = {1}
+	• B - A = {4, d}
+	• A Δ B = {1, 4, d}
+	• A (bar) = { x E N | x is not 1, 2, or 3 } where the universal set = N
+	• B (bar) = {1, 5, c, e} where the universal set = {1,2,3,4,5,c,d,e}
+
+Ven Diagrams are useful for understanding set relations
+	• C = {5}
+	• D = {e, f}
+	• A and see are disjoint (A n C = 0)
+	• A, C, D are mutually disjoint (or pairwise disjoint)
+	• A and B are not disjoint
+
+To prove A = B show:
+	1. A c= B
+	2. B c= A
+
+To prove A c!= B show:
+	1. A c= B
+	2. Ex such that x E B-A
+
+De Morgan's Laws
+	• A u B (With a huge bar over it) = A (bar) n B (bar)
+	• A n B (With a huge bar over it) = A (bar) u B (bar)
+Distributive laws
+	• A n (B u C) = (A n B) u ( A n C)
+	• A u (B n C) = (A u B) n (A u C)
+Associative laws
+	• A n (B n C) = (A n B) n C
+	• A u (B u C) = (A u B) u C
+Commutive laws
+	• A u B = B u A
+	• A n B = B n A
+Other laws
+	• A u A = A = A n A
+	• A u 0 = A
+	• A n 0 = 0
+	• A (double bar) = A
+
+Partition - Dividing a set into mutually disjoint nonempty subsets
+Example: N can be partitioned into Even and Odd subsets
+
+Cartesian Product (or cross product):
+	A x B = {(a,b) | a E A, b E B} (a, b) != (b, a)
+	Ie A x B is the set of all ordered pairs from A and B
+	Example: A = {1, 2, 3}, B = {a, b}, A x B = {(1,a), (1,b), (2,a), (2,b), (3,a), (3,b)}
+	Ci (Indexed set) = {n E N | n >= i} Vi E N
+	Ci x Ci = { (n, m) | n, m >= i}
+	Ci x A x Cj = {(n,m,r)|n>=I, m = 1,2 or 3, r>=j}
+	
+Chapter 3: Proof Methods
+Proof - showing that an assertion is true by a sequence of sentences that follow logically from other known facts (axioms or theorems)
+	• Direct Proof - finding a proof by moving forward from assuptoins toward the taget sentence (Assume A and dervie B to show A => B)
+		○ Does not always work
+		○ Ex if x - 2 =  0 then x ^ 2 - x - 2 = 0
+			§ X-2 = 0
+			§ X = 2
+			§ 2^2 - 2 -2 = 0
+			§ 4 - 4 = 0 
+			§ 0 = 0
+	• Proof by Contrapositive - to prove A => B, prove ~B => ~A
+		○ Sometimes also doesn't work
+		○ EX if 7n + 3 is odd then n is even
+			§ Assme that n is NOT even (and show that 7n + 3 is NOT odd in that case)
+			§ n is odd then
+			§ n = 2k + 1 for some k >= 0
+			§ 7(2k + 1) + 3 = 14k + 10
+			§ 14k + 10  = 2 (7k + 5) is even
+	• Proof by Cases - dividing the target assertion into cases and proving them individually
+		○ If n is an integer then n^2 - n is even
+			§ Case 1: n is even
+				□ n = 2k for some k
+				□ n^2 - n = (2k)^2 - 2k = 2(2k^2 - k) : even
+			§ Case 2: n is odd
+				□ n = 2k + 1 for some k
+				□ (2k + 1) ^2 - (2k + 1) = 4k^2 + 4k + 1 - 2k - 1 = 2(2k^2 + k) : even
+		○ 3m + 5n : even <=> either both m,n are even or both are odd
+		○ => : use proof by contrapositive
+			§ ~B => ~A
+			§ ~B1 ^ ~B2 => ~A
+		○ <= : use proof by cases
+			§ B1 => A
+			§ B2 => A
+	• Proof by counter-example - disproving Vx P(x) by finding an instance of x such that P(x) is false
+		○ If 4n + 5 is odd then n is even
+			§ Pick n = 3, 4n + 5 = 17 in this case
+	• Existence proof - proving Ex P(x) by finding an x that makes P(x) true)
+		○ Prove En (2-n^2 > 0)
+			§ Pick n = 1
+	• Proof by Contradiction - proving an assertion by assuming it is false and then deriving a contradiction
+		○ There is no smallest real number
+			§ Asseme E a smallest real number r. Then, r' = r - 1 is a real number smaller than r which is a contradiction
+
+	1. 0 E {O} (not instead of O) - no
+	2. 0 c= {O} - no
+	3. O E {0} - no //note O E {O} and O E {O, 0}
+	4. O c= {0} - yes
+	5. {0} E {0} - no //BC  0 may be in the set, but not another set containing 0
+	6. {0} c= {0} - yes
+	7. {O} E {O} - no
+	8. {O} E {{O}} - yes
+
+Chapter 4: Mathematical Induction
+	• Math Induction - Proving V n E N, P(n) by proving:
+		○ P(1) is true //start with smallest - induction basis
+		○ P(k) => P(k+1) for any k //prove an inference/hypothesis, left side is the hypothesis, the right side is the induction step
+
+EXAMPLE
+E(i=1, n) i^2 = (n(n+1)(2n+1))/6 V n >=1
+	1) Induction basis: n = 1
+		LHS = E(i=1, 1) i^2 = 1^2 = 1
+		RHS = (1 * 2 * 3 )/ 6 = 6 / 6 = 1 
+	2) Induction Hypothesis
+		Assume LHS = RHS for any n = k >= 1
+	3) Induction Step: When n = k + 1
+		LHS = E(i=1, k+1) i^2
+			= E(i = 1, k) i^2 + (k+1)^2 //Get a k term on its own
+			= (k(k+1)(2k+1))/6 + (k+1)^2 //Plug in with hypothesis
+			= ((k+1)(k+2)(2(k+1) + 1))/6 //Skipped showing some stuff, this is the RHS when n = k+1
+
+EXAMPLE
+For all n >= 14, n can be written as n = 3m + 8l for some m,l >= 0
+	1) Induction basis: n = 14
+		n = 3*2 + 8*1 //Done
+	2) Induction hypothesis
+		Assume TRUE for all n = 14, 15, …, k for any k >= 16 
+	3) Induction step
+		When n = k + 1 = (k - 2) + 3 //Observation: If the case n = k-2 satisfies the claim we got the proof for STEP
+			      = 3m' + 8l' + 3 ( for some m', l') = 3 (m' + 1) + 8l'
+		
+
+A strong induction: Proving Vn E N P(n) by proving 
+	1) P(1) is true
+	2) P(1), P(2), … P(k) => P(k+1)  V k>= 1
+
+
+Example:
+1/(1*2) + 1/(2*3) + … + 1/(n(n+1) = n/(n+1) V n >= 1
+Induction Basis: n = 1
+	LHS: 1/(1*2) = 1/2
+	RHS: 1/(1+1) = 1/2
+Induction Hypothesis: Assume LHS = RHS for any n = k >= 1
+Induction Step: n = k + 1
+	LHS: 1/(1*2) + 1/(2*3) + … + 1/((k+1)(k+2))
+		= k/(k+1) + 1/(k+1)(k+2)
+		= k(k+2) + 1 /(k+1)(k+2) = (k+1)^2/(k+1)(k+2) = k+1/(k+2)
+	RHS: k+1/(k+1 + 1) = k+1/(k+2)
+
+Example:
+n! > n^2 Vn >= 4
+Induction Basis: n = 4
+	LHS: 4! = 24 
+	RHS: 2^4 = 16 
+	24 > 16
+Induction Hypothesis: Assume LHS > RHS for any any n = k >= 4
+Induction Step: n = k + 1
+	LHS: (k+1)! = k! * (k+1)
+		k! * (k+1) > 2^k * (k+1) //by hypothesis
+	RHS: 2^(k+1) = 2^k * 2
+		2^k * (k+1) > 2^k * 2 since k >= 4
+		
+
+Chapter 5: Relations and Functions
+Note: Cartesian (or cross) product of A and B: 
+	A x B = {(a, b) | a E A, b E B}
+
+Relation from A to B - Any subset of AxB (call it relation on A if A = B)
+	Example: r = {(x, y) E Z+ x Z+ | x <=y}
+		Note: (x,y) E r => also denote x R y (really big r)
+			  (x,y) !E r => ''         ''        x!Ry (really big r with a slash)
+
+Definition: A relation R on S is:
+	1) Reflexive if (a,a) E R V a E S
+	2) Symmetric if (a,b) E R => (b,a) E R Va,b E S
+	3) Transitive if (a,b) E R, (b,c) E R => (a,c) E R Va,b,c E S
+
+Example: R = {(a,b) | a divides b} over S = {1, 2, 3, 4}
+R = {(1,1), (1,2), (1,3), (1,4), (2,2), (2,4), (3,3), (4,4)}
+	1) Reflexive? Yes, bc (1,1), (2,2), (3,3), (4,4) all exist
+	2) Symmetric? No, bc (1,2) exists but not (2,1)
+	3) Transitive? Yes (1,2) exists and (2,4) exists, and (1,4 exists)
+
+Equivalence relation - One that is reflexive, symmetric, and transitive
+
+Examples:
+	1) =
+	2) = mod k (for any k E N)
+	3) R = {(a,b) | a = b or a = -b}
+	4) R = {(l1, l2) | l1 = l2 or l1 is parallel to l2} on the set of all straign lines
+	5) R = {((a,b),(c,d))| ad = bc}
+		a. Reflexive: (a,b) R (a,b) ?
+			i. Because ab = ba
+		b. Symmetric
+			i. ((a,b),(c,d)) E R => ad = bc => cb = da => ((c,d),(a,b)) E R
+
+Every equivalence relation R on S partitions S into "equivalence classes"
+Each x E S belongs to exactly one equivalence class denoted by 
+[x] = { y E S | (x,y) E R}
+
+Examples:
+	1) = : [x] = {x} V x : Infinitely many classes (if the base set is infinite)
+	2) = mod k : [x] = {x, x +- k, x +- 2k, … } V x : Defines classes R0, R1, … , R(k-1)
+	3) |a| = |b| : [x] = {x, -x} Vx
+	4) (a,b) R (c,d) iff ad = bc = {(c,d) | ad = bc}
+
+Note: Conversely every partition of S defines an equivalence relation
+
+Definition: A function F from A to B, denoted by F:A->B, is a relation from A to B such that:
+	V a E A 3 b E B with (a,b) E F
+	And such a 'b' is unique
+
+Note: if (a,b) E F then we write F(a) = b or F:a -> B
+
+Cannot have 1 input give 2 outputs (ie not (1,1) AND (1,2), but (2,1) is fine)
+
+Example: F = {(x,y) | y = x^2 - 4x + 1}
+
+X^2 + Y^2 = 4 is not a function, but it is still a relation
+
+Special Functions:
+	• Identity Function: F(x) = x Vx
+	• Absolute Value Function: F(x) = |x| Vx
+	• Ceiling Function: F(x) = TxT Vx
+	• Floor Function: F(x) = LxL Vx
+	• Exponential Function: F(x) = C^x for some fixed c >0, Vx
+	• Polynomial Function: F(x) = x^c for come fixed c >0, Vx
+	• Logarithmic Function: F(x) = Log c (x) for come fixed c > 0, Vx
+	• Poly-Logarithmic Function: F(x) = (log c (x)) ^ k for some fixed c,k > 0, Vx
+
+
+
+Function Composition
+If f: A -> B and g: B -> C
+Then gof is a function such that gof(x) = g(f(x)) V x E A
+
+Definition: A function f: A->B is injective (or one-to-one) if Va,b e A, a != b, f(a) != f(b)
+Definition: f: A->B is onto (or surjective) if f(a) = B (hits every value)
+
+Examples:
+	• F(x) = 2x Vx one-to-one / onto
+	• F(x) = Tx/2T Vx not one-to-one / not onto
+	• F(x) = x^2 -2x +5 Vx not 1-1/not onto
+
+Definition: A function is bijective (or 1-1 correspondence) if it is both one-to-one and onto
+
+Example: Surjective but not injective
+Example: Injective but not Surjective
+
+Definition: The inverse of a bijective function f:A -> B is the bijective function f^-1: B->A such that f^-1(y) = x where f(x) = y
+Example: f(x) = 3x + 2 : Bijective
+		F^-1(x) = (x-2)/3
+Observation: If f: A->B is bijective then 
+	1) f-1 o f (dot) is the identity function on A 
+	2) f o f-1 (dot) is the identity function on B
+	
+Definition: A set S is denumerable (or countably infinite) if 3 bijection from S to N
+S is countable if S is either finite or denumerable; otherwise S is uncountable
+
+
+Induction requires that a set be ordered / countable / denumerable
+
+Example: The set of all positive even integers is denumerable
+	Numbers: 2, 4, 6, 8, …
+	Positions: 1, 2, 3, 4, …
+	
+Example: The set of all integers is denumerable
+	0, 1, -1, 2, -2, …
+	1, 0, 2, -1, -2, 3, -3 … //Ordering is not unique
+	
+Example: The set of all positive rational numbers (of the form a/b) is denumerable
+	a\b	1	2	3
+	1	1/1	1/2	1/3
+	2	2/1	2/2	2/3
+	3	3/1	3/2	3/3
+
+Example: The set of all rational numbers is denumerable
+	Note: alll positive rationals -> denumerable:
+		q1, q2, q3, …
+	All rationals:
+	0, q1, -q1, q2, -q2, … IE 3 an ordering of all rationals
+
+Theorem: Every infinite subset of a denumerable set is denumerable
+Proof:
+	Set S is denumerable
+		S = { s1, s2, s3, …}
+	For A, use the same relative ordering as in the enumeration of S
+Corrollary: Every set containing an uncountable subset is uncountable (this is the contrapositive)
+
+Example: the set [0, 1) is uncountable
+Proof: by contradiction
+Suppose Not, and so 3 an order of reals in [0, 1), say
+r1 = 0.d11 d12 …
+r2 = 0.d21 d22 …
+r3 = 0.d31 d32
+…
+Define a new real number r (by using Diagonalization)
+	r = 0. d1 d2 d3 …
+	Where di = {1 if dii = 0, 0 othwerise}
+	r != ri Vi
+IE r is a real # in [0, 1) but not in the enumeration. r1, r2, r3, … is a contradition to the assumption that r1, r2, r3 is an enumeration of reals in [0,1)
+So, [0, 1) is not countable
+
+Corollary: The set of all reals is uncountable (it includes [0, 1))
+
+Chapter 6: Algorithms and Complexity
+Algorithm - A sequence of instructions to perform a computation, which can be in the form of program codes or pseudocode or other logical language
+Note: For any given problem P:
+	1) Either 3 an algorithm to solve it (P is a solvable problem) => Do complexity analysis
+	2) Or !3 an algorithm (P is an unsolvable problem)
+
+Example: Sequential search
+LinSearch (L, x); //find x in the list L
+	i = 1;
+	While I < = length(L) and x != L(i) do
+		i ++;
+	Return L(i) if i <= length(L)
+
+BS if |L| = n
+	1) Sequential Search -> n comparisons
+	2) Binary Search -> Tlog2nT comparisons
+
+Complexity - a measure of efficiency of an algorithm, represented by a function in data size that esimates the amount of computing resources required to execute the algorithm. Computing resources include time, space, and energy.
+
+Just because in infinitely many cases one function is better, another can be better within finitely many cases
+
+Big O notation - used for upper bound analysis
+
+F(n) E O(g(n))
+If 3 constance c and n0 such that f(n) <= cg(n) for all n >= n0
+
+Big Ω - For Lower bound
+	f(n) E Ω(g(n)) if 3 c > 0 and n0 such that f(n) >= c*g(n) V n >= n0
+	If f is in big Ω of g, then g is in big O of f
+	
+If upper bound and lower bound are the same (with different c values allowed), we say it is the Big Circle(Theta) of the bound. 
+
+F(n) E Big Theta(G(n)) if F(n) E O(G(n)) AND F(n) E Ω(G(n))
+
+To say F(n) is strictly faster in growth than G we use small Ω (w)
+To say F(n) is strictly slower in growth than G we use small o
+
+Usually exponential or polynomial in time / calculations
+
+Polynomial amounts of space is too much - the algorithm is nearly unusable
+
+Polynomial vs Exponential Functions
+Algorithm a: O(n^2) time
+Algorithm b: O(2^n) time
+
+Assume size = 1,000 = n
+	Computing speed 10^20 operations per second
+Algorithm A
+	N^2 = 1,000 ^2 = 10^6 => 10^6/10^20 = 1/10^14 second
+Algorithm B
+	2^n = 2^1,000 = (2^10)^100 >= (10^3)^100 = 10^300 => 10^300 / 10^20 = 10^280 sec => 10^271 years, greater than the life of the Earth
+	
+Example (Complexity classes)
+	TIME (f(n)
+	SPACE (f(n))
+	P - Polynomial time solvable problems
+	Exp - Exponential time solvable problems
+	Polylog - polylog space solvable problems
+	Log - log space solvable problems
+
+
+Chapter 7 - Integers
+Note: real-world objects are coded by integers (binary #s) for digital computation
+	Divisability - A divides B, denoted by A | B, if B is a Multiple of A ( B = A * C)
+	Examples:
+		1 | A and A | 0
+		A | B and B | A => a = +- B
+		A | B and B | C => A | C
+		A | B =>  A | Bx Vx
+		A | B and A | C => A | bx + cy Vx, y
+		3 | n^3 -n Vn E N
+		4 | 5^n - 1 V n E N
+
+Two types of numbers: Prime and Composite
+	1 is a special case
+
+Theorem: Every composite number has a uniqe prime factorization: n = p1 * p2 * p3 * …
+Theorem: There are infinitely many primes
+Proof: (By contradiction)
+Assume: 3 finitely many primes, p1, p2, …, pk
+Then, B = p1, p2, …, pk + 1 ( so, B > P Vj)
+	Is a composite
+	This means that some P divides B, but P also divides B - 1
+	This means that Pj = 1 (because it divides two consecutive numbers), a contradition to Pj = prime
+	So 3 infinitely many primes
+
+Theorem: For all a,b E Z with b > 0
+
+Example: a= 24, b = 7 => q = 3, r = 3
+		a = -24, b = 7 => q = -4, r = -4
+
+
+gcd (a,b) = the greatest common divisor of a and b
+lcm (a,b) = the least common multiple of a and b
+
+Example: a = 120, b = 500
+		120 = 2^3 * 3 * 5
+		500 = 2^2 * 5^3
+			GCD => 2^2*5 = 20 
+			LCM => 2^3 * 3 * 5^3 = 3,000 
+
+Theorem: Va, b E N 
+	a * b = gcd(a,b) * lcm(a,b)
+
+
+Integer Representation
+Let b >= 2. Every number n E N can be written uniquely as n = ak * b^k + … a1 * b + a0
+	k >= 0, 0 =< ai < b Vi and ak != 0
+=> n is denoted by ak ak-1 ak-2 … a1 a0 in the base-b number system
+
+This is used to convert between base systems!
+
+Chapter 8: Counting
+Counting is the enumeration of the number of ways to arrange objects
+Examples: 40 books on C and 50 books on Java
+	1) How many ways to learn C or Java? 40 + 50 = 90 ways
+	2) How many ways to learn C and then Java? 40 * 50 = 2,000 ways
+
+Theorem: If there are m ways to do task 1 and n ways to do task 2, which are mutually disjoint, then
+1)There are m + n ways to do one of these two tasks (sum rule)
+2)There are m * n ways to do task 1 and then task 2 (the product rule)
+
+Example: A variable name consists of a single letter optionally followed by a single digit or letter
+	• Case 1: Length 1 (26)
+	• Case 2: Length 2 (26 * (10+26))
+26 (+) (26 (.) (26(+)10)) = 26 + (26 * 36) = 962 possibilities
+
+Theorem: Inclusion-Exclusion
+Let A1, A2, …, An be finite sets
+Then |A1 u A2 u …u An| = ∑(1 <= I <= n) |Ai| - ∑(1 <= I < j <= k) |Ai n Aj| + ∑(1 <= I < j < k <= n) |Ai n Aj n Ak | - … + (-1)|A1 n A2 n … n An|
+Inclusion and exclusion alternating
+
+Example: How many bit strings of length 8 start with 1 or end with 00?
+	• Starts with 1 = (1 * 2^7) = 128 cases 
+	• Ends with 00 = (2^6 * 1 * 1) = 64 cases
+
+Starts with 1 and ends with 00  = 2^5 = 32 cases
+128 + 64 - 32 = 160 Cases of this in total
+
+Example: The numer of positive integers n <= 100 not divisible by any of 2, 3, or 5?
+# of cases divisble by 2, 3, or 5 
+= (N2 + N3 + N5) - (N23 + N35 + N25) + (N235)
+= (50 + 33 + 20) - (16 + 6 + 10) + 3
+= 103 - 32 + 3 = 74 
+
+100 - 74 = 26 cases of not divisible by 2, 3, or 5
+
+
+Theorem: Pigeonhole Principle
+If k +  1 or more objects are distributed into k boxes, then there is at least one box containing one or more objects
+Example: Any set of n+1 natural numbers <= 2n contains a number that divides one of the other numbers
+Proof: Choose any n+1 such numbers a1, a2, …, an+1
+	Let ak = 2^mk * qk ( 1<= k <= n+1), where qk is an odd number
+	As there are n odd numbers <= 2n and there are n+1 odd numbers qk (1<= k <= n+1)
+	Some two numbers, qi and qj (i != j) must be equal (because of the pigeonhole principle), then either ai | aj or aj | ai
+
+Perumutation - a linear arrangement of objects
+	EX: if S = {1, 2, 3} then there are 6 distinct permutations
+
+Theorem: The total number of perumations of n objects is n * (n-1) * (n-2) * … * 1 = n!
+	P(n) = n! = P(n, n);
+
+Theorem: The total number of permutations of r objects choses from n objects (r <= n) is
+	n * (n - 1) * (n - 2) * … * (n - r + 1) 
+	n! / (n-r)! = P(n, r)
+
+Theorem: Circular Arrangement
+	There are (n-1)! Ways to circularly n objects
+
+Example:  How many ways to arrange three married couples a round table so that sexes alternate?
+	1) Arrange males first => (3-1)! = 2 for circular arrangement
+	2) Arrange females first => 3! = 6 for linear arrangement
+	3) Ans = 2 * 6 = 12 ways (product rule)
+
+Combination: selecting a subset of a set
+When selecting r items from set of n objects, C(n, r) = n! / (r! * (n-r)!)
+	Alternatively P(n, r) / r!
+
+Example: How many ways to select 3 cards out of 52 playing cards, with no reference to order?
+	Since order doesn't matter, ABC and CBA are the same - need to account for this
+	P(52, 3) / 3!
+	52! / 49! = 132,600 / 3! = 22,100 combinations
+
+Example: invite 11 people out of 20 committee members
+	=> combination => 20! / (9! * 11!)  = 167,960 
+Exampl: Invite 11 people out of 20 and then arrange them in square table of size 3x3
+	1) Select 20! / (9! * 11!)
+	2) Circularly arrange 12 (considering an empty chair +11 people) => (12 - 1)! = 11!
+	3) Undercounted, so multiply by 3
+
+Example: How many ways to form 4 volleyball teams of 9 girls each from 36 girls
+
+36!/(9!*27!) * 27!/(9!*18!) * 18!/(9!*9!) * 1 = 36!/(9!)^4 = 2E19 
+
+Chapter 9: More on Counting
+
+Theorem: Permutation with repetition
+	If there are n objects with nk of k-th type (1 <= k <= r and ∑(1<= k <= r) nk = n)
+	Then the number of permutations of these n objects is n! / (n1! * n2! … * nr!)
+	
+Example: How many ways to arrange the letters in MASSASAUGA linearly?
+	Total #: 10
+	M: 1
+	A: 4
+	S: 3
+	U: 1
+	G: 1
+	Ans: 10! / (4! * 3!) = 25,200 
+	
+	What if all four A's must be adjacent? Treat the As like 1 letter
+		Ans: 7!/(3!) = 840 
+	What if A's are not allowed to be adjacent? 
+		One Way: Subtract cases where all As together, 3 As together, or 2 As together
+		A Better Way: Insertion method - Forget A and permute other symbols
+		Ans: 6! / 3! (Permute 6 letters that aren't A)
+			4 As into 7 possible positions = ( 7 4)
+	What if Every A must be followed by  a U or G?
+		Ans: None - not enough Us or Gs
+	What if Every S must be followed by an A?
+		Treat SA as one letter
+		Ans: 7! / 3! = 840  
+
+Example:
+How many ways to maneuver from (2,1) to (7,4) in the integer grid using up/right moves?
+Total moves: 8
+	Up: 3
+	Right: 5
+Answer: 8!/(5!*3!) = 56 
+
+Example:
+Arrange the letters in TALLAHASSEE so that As are not adjacent
+	1) Ignore As and permute others
+		Total # = 8
+		L = 2
+		S = 2
+		E = 2
+		T = 1
+		H = 1
+		# = 8! / (2! * 2! * 2!) = 5,040 
+	2) Insert As into the 9 possible positions:
+		9 combination 3
+	3) Answer is: 8! / 2^3 * (9 c 3) = 7! * (9 c 3)
+
+Theorem: (Combination with repetition)
+	The number of ways to select r objects out of n kinds, with repetition, is C(r+n-1, r)
+	
+	r objects partitioned into n kinds
+	r dots, n-1 vertical lines > r + (n - 1) total objects
+	Answer = # of ways to arrange r + n-1 objects (r objects of one kind and n-1 objects of another kind) linearly = (r + n - 1)! / r! (n-1) ! = (r + n - 1 c r)
+	
+Example: How many ways to paint 10 tennis balls with 3 colors?
+	R = 10
+	N = 3
+	Ans = (10 + 3 - 1 c 10) = 12! / (10! * 2!) = 66 
+	
+Example: Distribute 7 apples and 6 oranges to 4 children so that each child  receives at least 1 apple:
+	1) One apple to each child: 1 way
+	2) 3 apples to 4 children (3 + 4 - 1 c 3) = 6! / (3! * 3!) = 20 
+	3) 6 apples between 4 children (6 + 4 -1 c 6) = 9! / (6! * 3!) = 84 
+	4) Ans: 1 * 20 * 84 = 1,680 ways for distribution
+
+Example: Transmit a messge of 12 distinct symbols with a total of 20 blansk between them
+	1) 12 symbols -> Permute 12!
+	2) Insert 20 blanks into 11 possible locations (20 + 11 - 1 c 20) = 30! / (20! * 10!)
+	3) Ans = 12! * 30! / (20! * 10!)
+
+Example: How many integer solutions to x1 + x2  + x3 + x4 = 7, xi >= 0 Vi
+	Think of as having 4 bowls for 7 marbles and all the different distribution methods
+	R = 7
+	N = 4
+	(7 + 4 - 1 c 7) = 10! / (7! * 3!)
+
+Example (Binomial theorem)
+	For each n >= 0:
+		(x + y) ^ n = (n c 0) x^0 y ^ n + (n c 1) x ^ 1 y^n-1 + … + (n c n) x^n y^0
+		= ∑(k = 0, n) (n c k) x^k y^n-k
+	Obs: (x + y) ^ n = (x+ y)(x + y) … (x + y) [n copies]
+	The coefficient of x^k y^n-k is the # f ways to select k x's out of n possible locations without repetition
+	
+	Pascal's triangle
+	1 - 1 1 - 1 2 1 - 1 3 3 1 …
+	is
+	(0 c 0) - ( 1 c 0) ( 1 c 1) - (2 c 0) (2 c 1) (2 c 2) - (3 c 0) (3 c 1) (3 c 2) ( 3 c 3) - …
+	Pascal's identity: Vn Vr (n c r) = (n-1 c r-1) + (n - 1 c r)
+
+Choosing r objects out of n:
+	1) Include x: choosing r-1 out of n: (n-1 c r)
+	2) Exclude x: choosing r out of n-1: (n-1 c r)
+
+(x+y)^3 = (3 c 0) x^0 y^3 + (3 c 1) x^1 y^2 + (3 c 2) x^2 y^1 + (3 c 3) x^3 y^0
+
+What is the coefficient of x^5 y^2 in (x + y)^7
+	(7 c 5)
+What about a^5b^2 in (2a-3b)^7?
+	(7 c 5) * 2^5 * (-3)^2
+
+Recurrence relation - a relation defining a function recursively (ie by using itself)
+Example: Binary Search
+	Go to the mid point and compare to the target, binary searching the segment that could have target
+
+T(n) = C + T (n/2) for some constant c > 0
+	T(n) = T(n/2) + c
+	T(n/2) = T(n/2^2) + c
+	…
+	T(n/2^k) = T(n/2^k+1) +  c
+	
+	T(n) = T(n/2^k+1) + (k+1)c
+When 2^k+1 ~ n, T(n/ 2^k+1) e O(1)
+	So, T(n) e O(1) + O(log n c 2)*c
+
+Example
+	An = 7 * A(n-1) + 5, A0 = 2
+	A(n-1) = 7 * A(n-2) + 5
+	…
+	A1 = 7 * A0 + 5
+	An = 7^n * A0 + 5 * (1 + 7 + 7^2 + … + 7^n-1) = 2 * 7^n + 5 * (1 - 7^n) /  (1-7) = 2 * 7^n + 5/6 (7^n - 1) E O (7^n)
+
+Example:
+	A problem of size n has been decomposed into 'a' copies of subproblems of size (n / b) that can be solved independently and combined together
+	T(n) = a  * T(n/b) + c
+	T(n/b) = a * T(n/b^2) + c
+	…
+	T(n/b^k) = a * T(n/b^k+1) + c
+	T(n) = a^k+1 * T(n/b^k+1) + c  * (1 - a^k+1) / ( 1 - a)
+	
+	When n ~ b^k+1, T(n/b^k+1) E O(1)
+		And  k + 1 = logb n
+		So, T(n) E a^logb n * O(1) + c * (1 - a^logb n) / (1 - a)
+			      = a^logb n * O(1) + c * (a^logb n - 1) / (a - 1)
+			Note: a^logb n = n^logb a
+			      = n(logb a) * O(1) + O(1) * n^logb a
+			      =O(n^logb a)
+
+Chapter 11 - Partially ordered sets
+Recall: A relation R on a set S is an equivalence relation if it is reflexive, symmetric, and transitive
+Definition: R is antisymmetric if aRb and bRa => a = b V a,b E S
+
+Note: There are 3 cases V a,b E S (a != b) if R is antisymmetric
+	1) aRb but b!Ra
+	2) bRa but a!Rb
+	3) a!Rb and b!Ra - a and b are incomparable
+
+Example, let S = {a, b, c}
+	1) R = {(a,a), (b,b)} - R is Symmetric and antisymmetric
+	2) R = {(a,a), (a,b), (b,c), (c,c)} - R is not symmetric and is antisymmetric
+	3) R = {(a,b), (b,a), (b,c), (c,b)} - R is symmetric but not antisymmetric
+	4) R = {(a,a), (a,b), (b,a), (b,c)} - R is not symmetric nor is it antisymmetric
+
+Define: R is a partial order if it is reflexive, antisymmetric, and transitive (partial in that there can be incomparability cases)
+Example:
+	1) <= on Z - a partial (and, in fact, total - meaning !3 incomparability cases) order
+		a. a <= b & b <= a => a = b
+	2) c= on 2^Z - a partial but not total order
+		a. 2^S = the set of all subsets of S
+
+Note: a total order is a partial order but not necessarily vice versa
+
+Definition: if R is a partial order on S then the pair (S, R) is a partially ordered set (or poset)
+	1) (Z, <=) is a poset
+	2) (2^Z, c=) is a poset
+	3) (N, |) is a poset
+
+Hasse Diagram - a graphical representation of finite posets
+Example: Let S = {2,3,6,12,18}
+	1) (S, <=) is a poset (and in fact a totally ordered set)
+		a. 2->3->6->12->18 (a "chain graph" since (S, <=) is totally ordered)
+		b. Note: loops (2 -> 2) and the relations derivable by transitivity such as (2->6) have been removed
+	2) (S, |) is a poset
+
+
+Definition: (S,R): a poset
+	1) x E S is maximal if  !3 a E S (a != x) such that xRa (x is maximal if there isn't an a within s that can be gotten with x)
+	x E S is minimal if !3 a E S such that aRx (x is minimal if there isn't an a within S that can give x)
+	2) x E S is greatest if aRx V a E S (not possible if there are multiple maximals)
+	x E S is least if xRa V a E S (not possible if there are multiple minimals)
+
+Definition: (S,R): a poset
+	B: any subset of S
+	1) x E S is an upperboud of B if aRx Va E B (if x is greatest in B)
+		Note: x may or may not be in B
+		When there are many upper bounds, pick a tight upper bound - as small as possible
+	x E S is a lowerbound of B if xRa Va E B (if x is least in B)
+		When there are many lower bounds, pick a tight lower bound - as large as possible
+	2) x E S is a least upper bound (lub) if it is an upperbound and xRx' for every other upper bound x' of B
+	x E S is a greatest lower bound (glb) if it is a lowerbound and x'Rx for every other lower boud x' of B
+	
+Example:
+2^{1,2,3} - set of all subsets of {1,2,3} - powerset
+= {O, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}}
+Let B = {{2}, {1,2}, {2,3}}
+
+This can be graphed with O being the root, pointing toward {1}, {2}, & {3}
+	Each of those pair off to point at their combination (ie {1} & {2} point toward {1,2})
+	All the 2 number sets point toward {1,2,3}
+
+B would look like {2} pointing toward {1,2} and {2,3} then
+	1) Upper bound of B: {1,2,3} only
+	2) Lower bound of B: {2} & O (from outside of B) - {1} and {3} don't 'cover' {2}, it is an incomparability so they aren't bounds
+	3) Least upper bound of B: {1,2,3}
+	4) Greatest lower bound of B: {2}
+
+These are all very important with respects to algorithms or even problems
+	Upper bound analysis & lower bound analysis
+Lots of problems we would like to solve as computer problems can be formulated as Graph Problems - described as graph structures
+
+Chapter 12: Graphs
+Definition: a graph is a pair G = (V, E)
+	Where V is a set of Vertices (or nodes) and E is a set of Edges (ordered or unordered pairs of nodes)
+
+Example: Travel from OKC to Dallas by plane
+	Cities include: Seattle, Denver, Chicago, NYC, Berlin, Paris, Atlanta, OKC, LA, Dallas, Seoul, and Tampa
+	There are flights from OKC to LA, Chicago, Dallas, Atlanta and Seattle
+	From Atlanta to to Chicago, Dallas, Tampa and NYC
+	From NYC to Tampa & LA
+	From Seattle to Chicago & LA
+Solve Reachability for (OKC, Dallas)!
+	Ans: OKC -> Chicago -> Seattle -> LA -> NYC -> Tampa -> Atlanta -> Dallas!
+
+Every optimization problem can be represented as a graph optimization problem
+
+Example:
+Graph(11) - + 1 since it doesn't start at 0
+(1,2)
+(1,6)
+(2,7)
+(2,3)
+(3,7)
+(3,4)
+(4,8)
+(4,5)
+(5,8)
+(5,6)
+(7,8)
+
+(9,10)
+
+G = {{1,…,11}, {1,2}, {1,6}, …}
+
+11 has no edges - an isolated node
+Nodes 5 and 6 are adjacent
+Node 5 and Edge (5,6) are incident
+Degree of node 1 is 2 (how many connections it has)
+Degree of G is 3 (maximal node degree)
+1-8 are connected components
+9-10 are connected components
+11 is a connected component
+G consists of 3 connected components
+Sequence (2, 7, 3, 4, 8) is a path from 2 to 8
+Sequence (2, 7, 3, 4, 8, 5, 6, 1, 2) is a cycle
+
+A graph without any cycle is a forest
+
+Representations of a graph:
+	• Adjacency list
+		○ 1: {10, 11}, 10 :{1, 11}, 11: {1, 10}
+		○ 1 = 0, 0 = 00, , = 000, : = 0000, { = 00000, } = 000000
+		○ 010000100000101001000101010000001000101001000100000101000101010000001000101010000100000101000101001000000
+	• Adjacency Matrix
+
+Special Graphs:
+	• Chain
+	• Complete Graph - every connection - K
+	• Cycle - single circle - C
+	• Wheel - cycle with 1 extra node connecting to everything - W - count excludes center node
+	• Star - 1 node connects to every other node - S - count excludes center node
+
+Bipartite Graph
+Graph can be seperated into two groups which connect - no internal connections however
+
+Planar Graph
+Graph drawable such that no two edges cross each other
+
+Bandwith is a way of talking about how many edges cross each other
+
+
+Chapter 13: Trees
+Rooted Tree - A tree with a root - used for hierarchical relations
+Ancestors and Descendents
+Bottom nodes are called leaf nodes
+Other than the root, other nodes are internal nodes
+Descendent of a node with its own descendents forms a subtree
+
+Binary Search Tree - A rooted binary tree containing sorted data
+Decision Tree - a rooted tree  in which internal nodes are associated with tests on attributes and edges represent outcomes of those tests
+
+
+Tree Traversals
+	Depth - First Search (DFS) - Pursue depth until it isn't possible, go one step back and repeat down a different path
+	Breadth-First Search (BFS) - Cover all children, then move down 1 level
+
+Queue Data structure for Breadth First Search
+
+Chap 1-3: Exam 1
+Chap 4-6: Exam 2
+Chap 7 Integers - this and following make up 70% of the test
+	8&9 Counting
+	11 POS
+	12 & 13 Graphs & Trees
+
+Final is a comprehensive exam covering everything
+10-12 questions - 14 is too many and odd numbers are terrible
+Have to review class notes - especially class examples!
+Exam is May 9th 1:30 to 3:30 - 1 week from NOW
